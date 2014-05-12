@@ -72,8 +72,17 @@ Ext.define('login.view.RegisterForm', {
                             xtype: 'button',
                             formBind: true,
                             itemId: 'registerButton',
+                            margin: '0 15 0 0',
                             scale: 'medium',
                             text: 'Register'
+                        },
+                        {
+                            xtype: 'button',
+                            formBind: false,
+                            itemId: 'registerCancelButton',
+                            margin: '0 15 0 0',
+                            scale: 'medium',
+                            text: 'Cancel'
                         }
                     ]
                 }

@@ -31,7 +31,7 @@ Ext.define('login.view.LoginForm', {
                             fieldLabel: 'Username',
                             labelAlign: 'right',
                             msgTarget: 'title',
-                            name: 'identity',
+                            name: 'username',
                             allowBlank: false,
                             blankText: 'Enter your Username.',
                             regexText: 'Enter your username.'
@@ -57,7 +57,7 @@ Ext.define('login.view.LoginForm', {
                         },
                         {
                             xtype: 'button',
-                            formBind: true,
+                            formBind: false,
                             itemId: 'registerButton',
                             margin: '0 15 0 0',
                             scale: 'medium',

@@ -24,8 +24,8 @@ Ext.application({
     },
     controllers: [
         'Users',
-        'Messages',
         'Viewport',
+        'Dashboard',
         'Page'
     ],
     requires: ['Util.Router'],
@@ -50,6 +50,8 @@ Ext.application({
         if (token) {
             Ext.History.add(token, true);
             this.dispatch(this.Router.recognize(token));
+        } else {
+            this.dispatch(this.Router.recognize("Main/showLogin"));
         }
     },
     dispatch: function(config) {
@@ -67,7 +69,7 @@ Ext.application({
         } else {
             console.log('Cannot found controller ' + controllerName);
         }
-        
+
         if (!controller) {
             config.controller = "Main";
             controllerName = Ext.String.capitalize(config.controller);
