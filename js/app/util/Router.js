@@ -142,10 +142,10 @@ Ext.define('Util.Router', {
     /**
      * Convenience method which just calls the supplied function with the Router instance. Example usage:
 
-		Ext.Router.draw(function(map) {
-		    map.connect('activate/:token', {controller: 'users', action: 'activate'});
-		    map.connect('home',            {controller: 'index', action: 'home'});
-		});
+        Ext.Router.draw(function(map) {
+            map.connect('activate/:token', {controller: 'users', action: 'activate'});
+            map.connect('home',            {controller: 'index', action: 'home'});
+        });
 
      * @param {Function} fn The fn to call
      */

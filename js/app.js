@@ -29,6 +29,7 @@ Ext.application({
         'Page'
     ],
     requires: ['Util.Router'],
+    currentController: null,
     Router: {},
     launch: function() {
         // initialize utils
@@ -46,17 +47,18 @@ Ext.application({
         this.historyChange(Ext.History.getToken());
     },
     historyChange: function(token) {
+        console.log(token);
         // and check if token is set
         if (token) {
             Ext.History.add(token, true);
             this.dispatch(this.Router.recognize(token));
         } else {
-            this.dispatch(this.Router.recognize("Main/showLogin"));
+            this.dispatch(this.Router.recognize("main/showLogin"));
         }
     },
     dispatch: function(config) {
         if (!config) {
-            console.log('undefined config');
+            console.log('undefined config ' + config);
             return;
         }
 
@@ -64,36 +66,28 @@ Ext.application({
         var controllerName = Ext.String.capitalize(config.controller),
                 controller;
 
-        if (this.controllers.keys.indexOf(controllerName) > -1) {
-            controller = this.getController(controllerName);
-        } else {
+        if (this.controllers.keys.indexOf(controllerName) === -1) {
             console.log('Cannot found controller ' + controllerName);
+            controllerName = config.controller = "Main";
         }
-
-        if (!controller) {
-            config.controller = "Main";
-            controllerName = Ext.String.capitalize(config.controller);
-            controller = this.getController(controllerName);
-        }
+        
+        controller = this.getController(controllerName);
         
         if (!controller) {
             return;
         }
         // save controllers onLaunch function if defined
         var onLaunch = controller.onLaunch;
-        
+
         // prototype new onLaunch, where we dispatch the action which was called
         controller.onLaunch = function(app) {
-            
             // !IMPORTANT call init method of controller
-            controller.init();
-            
+            this.init(app);
             // also call the base functionality of onlaunch
-            onLaunch();
-            
-            if (typeof(controller[config.action]) === "function") {
+            onLaunch(app);
+            if (typeof(this[config.action]) === "function") {
                 // call function
-                controller[config.action]();
+                this[config.action]();
             } else {
                 console.log('controller ' + controllerName + " doesn\'t have action " + config.action);
             }

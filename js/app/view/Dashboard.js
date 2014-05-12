@@ -21,7 +21,15 @@ Ext.define('APP.view.Dashboard', {
                     split: true,
                     height: 100,
                     minHeight: 60,
-                    html: 'north'
+                    html: 'north',
+                    items: [{
+                            xtype: 'button',
+                            formBind: false,
+                            itemId: 'logoutButton',
+                            margin: '0 15 0 0',
+                            scale: 'medium',
+                            text: 'Logout'
+                        }]
                 }, {
                     region: 'west',
                     collapsible: true,

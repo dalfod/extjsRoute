@@ -25,7 +25,7 @@ Ext.define('APP.controller.Main', {
         if (!loginForm) {
             loginForm = Ext.create("widget.loginform");
         }
-        
+        console.log(loginForm);
         if (show) {
             // Show window
             loginForm.show();
@@ -104,21 +104,27 @@ Ext.define('APP.controller.Main', {
         var form = button.up('form'),			// Register form
             formWindow = button.up('window'),		// Register form window
             values = form.getValues(),			// Form values
-            loginPanel = this.getLoginPanel(),		// Panel shown when logged out
-            logoutPanel = this.getLogoutPanel();	// Panel shown when logged in
+            RegisterForm = this.getRegisterForm();	// Panel shown when logged out
 
         // Success
         var successCallback = function(resp, ops) {
 
-            // Hide login panel
-            loginPanel.hide();
-
-            // Show logout panel
-            logoutPanel.show();
+            var data;
+            if (resp) {
+                try {
+                    data = JSON.parse(resp.responseText);
+                } catch (ex) {
+//                    console.log(resp.responseText);
+                }
+            }
+//            console.log(data);
+            // Hide register form
+            RegisterForm.hide();
 
             // Close window
             formWindow.destroy();
-
+            
+            Ext.History.add('dashboard/view');
         };
 
         // Failure
